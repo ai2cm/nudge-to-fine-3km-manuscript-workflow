@@ -6,6 +6,9 @@ TRAINING_DATA_RAD_PRECIP_PRESCRIBED=gs://vcm-ml-experiments/2021-04-13-n2f-c3072
 TRAINING_DATA_CONTROL_ZARR=gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf-training-dataset/training_dataset.zarr
 TRAINING_DATA_CONTROL=gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf
 
+FIGURES = figure_x
+
+
 generate_times:
 	cd train-evaluate-prognostic-run; \
 	python generate_times.py \
@@ -159,3 +162,11 @@ deploy_nudge_to_fine: kustomize
 
 kustomize:
 	./install_kustomize.sh 3.10.0
+
+create_environment:
+	make -C fv3net update_submodules && make -C fv3net create_environment
+
+create_figures: create_environment $(addprefix execute_notebook_, $(FIGURES))
+
+execute_notebook_%:
+	jupyter nbconvert --to notebook --execute notebooks/$**.ipynb
