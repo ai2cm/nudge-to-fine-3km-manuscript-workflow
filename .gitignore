@@ -1,2 +1,4 @@
 kustomize
 .ipynb_checkpoints
+*.png
+*.nbconvert.ipynb
