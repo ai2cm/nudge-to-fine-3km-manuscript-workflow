@@ -115,6 +115,7 @@ prognostic_nn_random_seeds: deploy
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
 prognostic_nn_ensemble: deploy
 	cd prognostic-run; \
+	nn-ensemble-models/upload.sh \
 	./run.sh \
 		nn-ensemble \
 		"20160805.000000" \
