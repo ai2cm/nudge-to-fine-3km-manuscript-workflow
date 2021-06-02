@@ -1,12 +1,19 @@
 # nudge-to-fine-3km-manuscript-workflow
 A reproducible set of workflows for the N2F-3km manuscript
 
+The repository consists of two major types of configurations:
+1) argo workflows for generating the data used in machine learning, training models, and running the FV3GFS model prognostically
+2) using data generated above, scripts and notebooks for generating the figures in the manuscript
+
+
+Repository structure:
 ```
-workflows/
-└── nudge-to-fine-run
-    ├── README.md
-    ├── nudged-run-3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf.sh
-    ├── nudged-run-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf.sh
-    ├── nudging-config-3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf.yaml
-    └── nudging-config-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf.yaml
+├── LICENSE
+├── Makefile
+├── README.md
+├── install_kustomize.sh
+├── kustomization.yaml
+├── kustomize
+└── workflows
+    └── nudge-to-fine-run
 ```
