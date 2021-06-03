@@ -160,6 +160,9 @@ prognostic_report_rf_nn_comparison: deploy deploy_ml_experiments
 	cd workflows/prognostic-run-report; \
 	./run.sh nudge-to-3km-nn-rf-comparison
 
+prognostic_report_sensitivity: deploy deploy_ml_experiments
+	cd workflows/prognostic-run-report; \
+	./run.sh nudge-to-3km-sensitivity
 
 deploy_ml_experiments: kustomize
 	./kustomize build workflows/train-evaluate-prognostic-run | kubectl apply -f -
