@@ -9,13 +9,14 @@ TRAINING_DATA_CONTROL=gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-co
 FIGURES = figure_x
 
 
-generate_times:
-	cd train-evaluate-prognostic-run; \
-	python generate_times.py \
+generate_times_prescribed:
+	python workflows/train-evaluate-prognostic-run/generate_times.py \
 		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
 		train_prescribed_precip_flux.json \
-		test_prescribed_precip_flux.json ; \
-	python generate_times.py \
+		test_prescribed_precip_flux.json 
+
+generate_times_control:
+	python workflows/train-evaluate-prognostic-run/generate_times.py \
 		$(TRAINING_DATA_CONTROL) \
 		train_control.json \
 		test_control.json
@@ -39,20 +40,12 @@ nudge_to_fine_training_data_zarrs:
 
 
 # training nudged data has rad and precip prescribed from reference
-train_rf: deploy_ml_experiments
-	cd train-evaluate-prognostic-run; \
-	./run.sh \
-		2021-05-11-nudge-to-c3072-corrected-winds/rf \
-		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
-		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED_ZARR) \
-		./training-configs/tendency-outputs.yaml \
-		./training-configs/surface-outputs.yaml \
-		train_prescribed_precip_flux.json \
-		test_prescribed_precip_flux.json
-
+train_rf: deploy_ml_experiments generate_times_prescribed
+	cd workflows/train-evaluate-prognostic-run;  \
+	
 # training nudged data has rad and precip prescribed from reference
-train_nn_random_seeds: deploy_ml_experiments
-	cd train-evaluate-prognostic-run; \
+train_nn_random_seeds: deploy_ml_experiments generate_times_prescribed
+	cd workflows/train-evaluate-prognostic-run;  \
 	./run_random_seeds.sh \
 		2021-05-11-nudge-to-c3072-corrected-winds/nn \
 		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
@@ -65,7 +58,7 @@ train_nn_random_seeds: deploy_ml_experiments
 
 # training nudged data does not have any prescribed surface states
 train_rf_control: deploy_ml_experiments
-	cd train-evaluate-prognostic-run; \
+	cd workflows/train-evaluate-prognostic-run; \
 	./run.sh \
 		2021-05-11-nudge-to-c3072-corrected-winds/control-rf \
 		$(TRAINING_DATA_CONTROL) \
@@ -80,7 +73,7 @@ train_rf_control: deploy_ml_experiments
 # runs four initial conditions
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML RF prediction
 prognostic_rf_ics: deploy_ml_experiments
-	cd prognostic-run; \
+	cd workflows/prognostic-run; \
 	./run_ICs.sh \
 		training-prescribed-ml-tendencies-rad-rf \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/trained_models/postphysics_ML_tendencies \
@@ -92,7 +85,7 @@ prognostic_rf_ics: deploy_ml_experiments
 # runs four initial conditions
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN ensemble median prediction
 prognostic_nn_ensemble_ics: deploy_ml_experiments
-	cd prognostic-run; \
+	cd workflows/prognostic-run; \
 	./run_ICs.sh \
 		training-prescribed-ml-tendencies-rad-nn \
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dqu-dqv" \
@@ -104,7 +97,7 @@ prognostic_nn_ensemble_ics: deploy_ml_experiments
 # prognostic run using NN 
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
 prognostic_nn_random_seeds: deploy_ml_experiments
-	cd prognostic-run; \
+	cd workflows/prognostic-run; \
 	./run_random_seeds.sh \
 		nn-random-seeds \
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQ1_dQ2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQu_dQv" \
@@ -115,7 +108,7 @@ prognostic_nn_random_seeds: deploy_ml_experiments
 # prognostic run using NN ensemble median of seeds 0-3
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
 prognostic_nn_ensemble: deploy_ml_experiments
-	cd prognostic-run; \
+	cd workflows/prognostic-run; \
 	nn-ensemble-models/upload.sh \
 	./run.sh \
 		nn-ensemble \
@@ -128,7 +121,7 @@ prognostic_nn_ensemble: deploy_ml_experiments
 # training nudged data does not have any prescribed surface states
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML prediction
 prognostic_training_control_ml_tendencies_rad: deploy_ml_experiments
-	cd prognostic-run; \
+	cd workflows/prognostic-run; \
 	./run.sh \
 		training-control-ml-tendencies-rad \
 		"20160805.000000" \
@@ -140,7 +133,7 @@ prognostic_training_control_ml_tendencies_rad: deploy_ml_experiments
 # training nudged data does not have any prescribed surface states
 # prognostic run updates with dQ1, dQ2, dQu, dQv from ML prediction
 prognostic_training_control_ml_tendencies_only: deploy_ml_experiments
-	cd prognostic-run; \
+	cd workflows/prognostic-run; \
 	./run.sh \
 		training-control-ml-tendencies-only \
 		"20160805.000000" \
