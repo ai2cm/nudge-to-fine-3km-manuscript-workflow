@@ -35,9 +35,16 @@ nudge_to_fine_rad_precip_prescribed: deploy_nudge_to_fine
 	cd workflows/nudge-to-fine-run; \
 	./nudged-run-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf.sh
 
-nudge_to_fine_training_data_zarrs:
-	python workflows/nudge-to-fine-run/create_training_data_zarrs.py
+nudge_to_fine_training_data_zarrs_prescribed:
+	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED)/state_after_timestep.zarr \
+		gs://vcm-ml-scratch/annak/2021-06-03-test-output
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED_ZARR)
 
+nudge_to_fine_training_data_zarrs_control:
+	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
+		$(TRAINING_DATA_CONTROL) \
+		$(TRAINING_DATA_CONTROL_ZARR)
 
 # training nudged data has rad and precip prescribed from reference
 train_rf: deploy_ml_experiments generate_times_prescribed
@@ -57,7 +64,7 @@ train_nn_random_seeds: deploy_ml_experiments generate_times_prescribed
 
 
 # training nudged data does not have any prescribed surface states
-train_rf_control: deploy_ml_experiments
+train_rf_control: deploy_ml_experiments generate_times_control
 	cd workflows/train-evaluate-prognostic-run; \
 	./run.sh \
 		2021-05-11-nudge-to-c3072-corrected-winds/control-rf \

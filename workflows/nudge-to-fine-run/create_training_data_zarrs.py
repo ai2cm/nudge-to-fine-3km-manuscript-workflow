@@ -1,5 +1,6 @@
 # Make a training dataset for a radiative flux prediction model.
 
+import sys
 import numpy as np
 import xarray as xr
 import intake
@@ -12,7 +13,6 @@ from vcm.safe import get_variables
 
 
 VARIABLES = ["DSWRFsfc", "DLWRFsfc", "USWRFsfc", "PRATEsfc"]
-ZARRNAME = 'training_data.zarr'
 RENAME = {
     'DSWRFsfc': 'override_for_time_adjusted_total_sky_downward_shortwave_flux_at_surface',
     'DLWRFsfc': 'override_for_time_adjusted_total_sky_downward_longwave_flux_at_surface',
@@ -20,13 +20,8 @@ RENAME = {
 }
 
 
-
-
 def _verification_fluxes(dataset_key: str) -> xr.Dataset:
-    try:
-        ds = CATALOG[dataset_key].to_dask()
-    except KeyError:
-        ds = intake.open_zarr(dataset_key, consolidated=consolidated).to_dask()
+    ds = CATALOG[dataset_key].to_dask()
     ds = standardize_fv3_diagnostics(ds)
     ds = get_variables(ds, VARIABLES)
     ds = ds.assign({'NSWRFsfc': _net_shortwave(ds['DSWRFsfc'], ds['USWRFsfc'])}).drop_vars('USWRFsfc')
@@ -75,29 +70,23 @@ def cast_to_double(ds: xr.Dataset) -> xr.Dataset:
 verification_dataset_key = '40day_c48_gfsphysics_15min_may2020'
 
 
-prescribed_state_dataset_path = 'gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf/state_after_timestep.zarr'
-prescribed_output_path = 'gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf-training-dataset'
-control_state_dataset_path = 'gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf/state_after_timestep.zarr'
-control_output_path = 'gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf-training-dataset'
-
+state_path = sys.argv[1]
+output_path = sys.argv[2]
 
 verif_ds = _verification_fluxes(verification_dataset_key)
 
-for state_path, output_path in [
-        (prescribed_state_dataset_path, prescribed_output_path),
-        (control_state_dataset_path, control_output_path)
-]:
-    print(
-        f"Writing training data zarr using state from {state_path} "
-        f"to output location {output_path}"
-    )
-    state_ds = _state(state_path, consolidated=True)
-    state_chunks = state_ds.chunks
-    ds = xr.merge([verif_ds, state_ds], join='inner')
-    ds = ds.chunk(state_chunks)
-    ds = cast_to_double(ds)
 
-    mapper = fsspec.get_mapper(os.path.join(output_path, ZARRNAME))
-    with ProgressBar():
-        ds.to_zarr(mapper, consolidated=True)
+print(
+    f"Writing training data zarr using state from {state_path} "
+    f"to output location {output_path}"
+)
+state_ds = _state(state_path, consolidated=True)
+state_chunks = state_ds.chunks
+ds = xr.merge([verif_ds, state_ds], join='inner')
+ds = ds.chunk(state_chunks)
+ds = cast_to_double(ds)
+
+mapper = fsspec.get_mapper(output_path)
+with ProgressBar():
+    ds.to_zarr(mapper, consolidated=True)
 
