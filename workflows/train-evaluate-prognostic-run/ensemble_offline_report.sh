@@ -2,10 +2,10 @@
 
 set -e
 
-EXPERIMENT_ROOT=gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model
 TEST_TIMES=test_prescribed_precip_flux.json
-REPORT_OUTPUT_ROOT=gs://vcm-ml-public/offline_ml_diags/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model
 
+EXPERIMENT_ROOT=$1
+REPORT_OUTPUT_ROOT=$2 
 
 argo submit \
     --from workflowtemplate/offline-diags \

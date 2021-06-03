@@ -76,6 +76,15 @@ train_rf_control: deploy_ml_experiments generate_times_control
 		test_control.json
 
 
+# ensemble model needs offline report generated, as it is only done automatically for its components
+offline_report_nn_ensemble: deploy_ml_experiments generate_times_control
+	cd workflows/train-evaluate-prognostic-run; \
+	nn-ensemble-models/upload.sh; \
+	./ensemble_offline_report.sh \
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model \
+		gs://vcm-ml-public/offline_ml_diags/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model
+
+
 # training nudged data has rad and precip prescribed from reference
 # runs four initial conditions
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML RF prediction
@@ -115,7 +124,6 @@ prognostic_nn_random_seeds: deploy_ml_experiments
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
 prognostic_nn_ensemble: deploy_ml_experiments
 	cd workflows/prognostic-run; \
-	nn-ensemble-models/upload.sh \
 	./run.sh \
 		nn-ensemble \
 		"20160805.000000" \
