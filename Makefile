@@ -93,7 +93,6 @@ prognostic_nn_ensemble_ics: deploy_ml_experiments
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs
 
 
-
 # prognostic run using NN 
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
 prognostic_nn_random_seeds: deploy_ml_experiments
@@ -142,7 +141,9 @@ prognostic_training_control_ml_tendencies_only: deploy_ml_experiments
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-rf/prognostic_run_tendencies_only
 
 
-
+prognostic_report_rf_nn_comparison: deploy deploy_ml_experiments
+	cd workflows/prognostic-run-report; \
+	./run.sh nudge-to-3km-nn-rf-comparison
 
 
 deploy_ml_experiments: kustomize
