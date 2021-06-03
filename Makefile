@@ -39,7 +39,7 @@ nudge_to_fine_training_data_zarrs:
 
 
 # training nudged data has rad and precip prescribed from reference
-train_rf: deploy
+train_rf: deploy_ml_experiments
 	cd train-evaluate-prognostic-run; \
 	./run.sh \
 		2021-05-11-nudge-to-c3072-corrected-winds/rf \
@@ -51,7 +51,7 @@ train_rf: deploy
 		test_prescribed_precip_flux.json
 
 # training nudged data has rad and precip prescribed from reference
-train_nn_random_seeds: deploy
+train_nn_random_seeds: deploy_ml_experiments
 	cd train-evaluate-prognostic-run; \
 	./run_random_seeds.sh \
 		2021-05-11-nudge-to-c3072-corrected-winds/nn \
@@ -64,7 +64,7 @@ train_nn_random_seeds: deploy
 
 
 # training nudged data does not have any prescribed surface states
-train_rf_control: deploy
+train_rf_control: deploy_ml_experiments
 	cd train-evaluate-prognostic-run; \
 	./run.sh \
 		2021-05-11-nudge-to-c3072-corrected-winds/control-rf \
@@ -76,12 +76,10 @@ train_rf_control: deploy
 		test_control.json
 
 
- 
-
 # training nudged data has rad and precip prescribed from reference
 # runs four initial conditions
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML RF prediction
-prognostic_rf_ics: deploy
+prognostic_rf_ics: deploy_ml_experiments
 	cd prognostic-run; \
 	./run_ICs.sh \
 		training-prescribed-ml-tendencies-rad-rf \
@@ -93,7 +91,7 @@ prognostic_rf_ics: deploy
 # training nudged data has rad and precip prescribed from reference
 # runs four initial conditions
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN ensemble median prediction
-prognostic_nn_ensemble_ics: deploy
+prognostic_nn_ensemble_ics: deploy_ml_experiments
 	cd prognostic-run; \
 	./run_ICs.sh \
 		training-prescribed-ml-tendencies-rad-nn \
@@ -105,7 +103,7 @@ prognostic_nn_ensemble_ics: deploy
 
 # prognostic run using NN 
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
-prognostic_nn_random_seeds: deploy
+prognostic_nn_random_seeds: deploy_ml_experiments
 	cd prognostic-run; \
 	./run_random_seeds.sh \
 		nn-random-seeds \
@@ -116,7 +114,7 @@ prognostic_nn_random_seeds: deploy
 
 # prognostic run using NN ensemble median of seeds 0-3
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
-prognostic_nn_ensemble: deploy
+prognostic_nn_ensemble: deploy_ml_experiments
 	cd prognostic-run; \
 	nn-ensemble-models/upload.sh \
 	./run.sh \
@@ -129,7 +127,7 @@ prognostic_nn_ensemble: deploy
 
 # training nudged data does not have any prescribed surface states
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML prediction
-prognostic_training_control_ml_tendencies_rad: deploy
+prognostic_training_control_ml_tendencies_rad: deploy_ml_experiments
 	cd prognostic-run; \
 	./run.sh \
 		training-control-ml-tendencies-rad \
@@ -141,7 +139,7 @@ prognostic_training_control_ml_tendencies_rad: deploy
 
 # training nudged data does not have any prescribed surface states
 # prognostic run updates with dQ1, dQ2, dQu, dQv from ML prediction
-prognostic_training_control_ml_tendencies_only: deploy
+prognostic_training_control_ml_tendencies_only: deploy_ml_experiments
 	cd prognostic-run; \
 	./run.sh \
 		training-control-ml-tendencies-only \
