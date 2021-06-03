@@ -23,18 +23,18 @@ generate_times:
 # nudged to fine run where we do not set any states based on fine-resolution data, 
 # use a radiation timestep of 1800 seconds, start the simulation at 20160801.010000, 
 # and use the TKE-EDMF turbulence scheme
-nudge_to_fine_control_half_hour_rad_timestep_shifted_start_tke_edmf: deploy_nudge_to_fine
+nudge_to_fine_control: deploy_nudge_to_fine
 	cd workflows/nudge-to-fine-run; \
 	./nudged-run-3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf.sh
 
 # nudged to fine run where we set the surface radiative fluxes and precipitation rate
 # based on fine-resolution data, use a radiation timestep of 1800 seconds, start
 # the simulation at 20160801.010000, and use the TKE-EDMF turbulence scheme
-nudge_to_fine_rad_precip_half_hour_rad_timestep_shifted_start_tke_edmf: deploy_nudge_to_fine
+nudge_to_fine_rad_precip_prescribed: deploy_nudge_to_fine
 	cd workflows/nudge-to-fine-run; \
 	./nudged-run-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf.sh
 
-nudge_to_fine_create_training_data_zarrs:
+nudge_to_fine_training_data_zarrs:
 	python workflows/nudge-to-fine-run/create_training_data_zarrs.py
 
 
@@ -108,10 +108,10 @@ prognostic_nn_ensemble_ics: deploy
 prognostic_nn_random_seeds: deploy
 	cd prognostic-run; \
 	./run_random_seeds.sh \
-		nn-random-seeds-rad-l2-2e-2 \
+		nn-random-seeds \
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQ1_dQ2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQu_dQv" \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn.yaml \
-		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-rad-l2-2e-2/seed-n/prognostic_run_sfc_rad
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/prognostic_run_sfc_rad
 
 
 # prognostic run using NN ensemble median of seeds 0-3
