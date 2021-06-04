@@ -1,4 +1,4 @@
 kustomize
 .ipynb_checkpoints
-*.png
+notebooks/figures/*.png
 *.nbconvert.ipynb
