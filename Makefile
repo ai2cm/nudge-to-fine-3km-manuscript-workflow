@@ -106,7 +106,7 @@ prognostic_nn_ensemble_ics: deploy_ml_experiments
 		training-prescribed-ml-tendencies-rad-nn \
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dqu-dqv" \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
-		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rf_rad
 
 
 # prognostic run using NN 

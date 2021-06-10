@@ -67,6 +67,9 @@ fortran_diagnostics:
   - {module_name: gfs_sfc, field_name: SOILT2, output_name: SOILT2}
   - {module_name: gfs_sfc, field_name: SOILT3, output_name: SOILT3}
   - {module_name: gfs_sfc, field_name: SOILT4, output_name: SOILT4}
+  - {module_name: gfs_phys, field_name: DSWRF_from_rrtmg, output_name: DSWRFsfc_from_RRTMG}
+  - {module_name: gfs_phys, field_name: USWRF_from_rrtmg, output_name: USWRFsfc_from_RRTMG}
+  - {module_name: gfs_phys, field_name: DLWRF_from_rrtmg, output_name: DLWRFsfc_from_RRTMG}
 - name: atmos_dt_atmos.zarr
   chunks:
     time: 96
