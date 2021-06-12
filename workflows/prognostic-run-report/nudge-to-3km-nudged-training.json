@@ -1,0 +1,14 @@
+[
+  {
+    "url": "gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf",
+    "name": "nudging-only-training"
+  },
+  {
+    "url": "gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf",
+    "name": "nudging-prescribed-rad-precip-training"
+  },
+  {
+    "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160801.010000-start-rad-step-1800s",
+    "name": "baseline-20160801.010000-start"
+  }
+]
