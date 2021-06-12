@@ -8,7 +8,7 @@
     "name": "nudging-prescribed-rad-precip-training"
   },
   {
-    "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160801.010000-start-rad-step-1800s",
-    "name": "baseline-20160801.010000-start"
+    "url": "gs://vcm-ml-experiments/2020-12-17-n2f-moisture-conservation/baseline/prognostic-run",
+    "name": "baseline-20160801.000000-start"
   }
 ]
