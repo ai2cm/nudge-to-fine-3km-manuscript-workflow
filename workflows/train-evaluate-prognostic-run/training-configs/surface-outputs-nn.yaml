@@ -3,6 +3,7 @@
     random_seed: 0 
     model_type: DenseModel
     hyperparameters:
+      nonnegative_outputs: true
       loss: mae
       depth: 2
       fit_kwargs:
@@ -13,7 +14,7 @@
       regularizer:
         name: l2
         kwargs:
-          l: 0.02
+          l: 0.0
       optimizer:
         name: Adam
         kwargs:
