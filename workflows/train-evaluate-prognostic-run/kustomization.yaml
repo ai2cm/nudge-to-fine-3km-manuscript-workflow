@@ -4,8 +4,8 @@ resources:
 kind: Kustomization
 images:
 - name: us.gcr.io/vcm-ml/fv3net
-  newTag: a24d15ef763a2a157e62738dbf09738cb85fe8ad
+  newTag: 3c3b55a51a260d3cbdcace5bdcc81b7e9e7eddb2
 - name: us.gcr.io/vcm-ml/post_process_run
-  newTag: a24d15ef763a2a157e62738dbf09738cb85fe8ad
+  newTag: 3c3b55a51a260d3cbdcace5bdcc81b7e9e7eddb2
 - name: us.gcr.io/vcm-ml/prognostic_run
-  newTag: a24d15ef763a2a157e62738dbf09738cb85fe8ad
+  newTag: 3c3b55a51a260d3cbdcace5bdcc81b7e9e7eddb2
