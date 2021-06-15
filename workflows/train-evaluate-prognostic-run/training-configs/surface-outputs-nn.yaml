@@ -1,4 +1,4 @@
-- name: prephysics_ML_surface_flux
+- name: prephysics_ML_surface_flux_rectified
   config:
     random_seed: 0 
     model_type: DenseModel
