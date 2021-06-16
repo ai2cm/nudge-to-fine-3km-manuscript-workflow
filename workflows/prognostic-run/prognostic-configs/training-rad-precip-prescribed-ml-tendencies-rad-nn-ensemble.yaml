@@ -21,7 +21,7 @@ namelist:
 prephysics:
   diagnostic_ml: false
   model:
-    - gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/surface-rad
+    - gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/surface-rad-rectified
 fortran_diagnostics:
 - name: sfc_dt_atmos.zarr
   chunks:

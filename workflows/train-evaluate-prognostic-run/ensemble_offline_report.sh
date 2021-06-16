@@ -27,9 +27,9 @@ argo submit \
 
 argo submit \
     --from workflowtemplate/offline-diags \
-    -p ml-model="$EXPERIMENT_ROOT/trained_models/surface-rad" \
+    -p ml-model="$EXPERIMENT_ROOT/trained_models/surface-rad-rectified" \
     -p times="$(<  $TEST_TIMES )" \
-    -p offline-diags-output="$EXPERIMENT_ROOT/offline_diags/surface-rad" \
-    -p report-output="$REPORT_OUTPUT_ROOT/surface-rad" \
+    -p offline-diags-output="$EXPERIMENT_ROOT/offline_diags/surface-rad-rectified" \
+    -p report-output="$REPORT_OUTPUT_ROOT/surface-rad-rectified" \
     -p memory="25Gi" \
     --name "offline-nn-ensemble-surface-rad"

@@ -81,8 +81,8 @@ offline_report_nn_ensemble: deploy_ml_experiments generate_times_control
 	cd workflows/train-evaluate-prognostic-run; \
 	nn-ensemble-models/upload.sh; \
 	./ensemble_offline_report.sh \
-		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model \
-		gs://vcm-ml-public/offline_ml_diags/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model-rectified \
+		gs://vcm-ml-public/offline_ml_diags/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model-rectified
 
 
 # training nudged data has rad and precip prescribed from reference
@@ -103,10 +103,10 @@ prognostic_rf_ics: deploy_ml_experiments
 prognostic_nn_ensemble_ics: deploy_ml_experiments
 	cd workflows/prognostic-run; \
 	./run_ICs.sh \
-		training-prescribed-ml-tendencies-rad-nn \
+		training-prescribed-ml-tendencies-rad-rect-nn \
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dqu-dqv" \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
-		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad
 
 
 # prognostic run using NN 
