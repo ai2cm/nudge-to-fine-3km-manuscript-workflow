@@ -47,11 +47,11 @@ nudge_to_fine_training_data_zarrs_control:
 		$(TRAINING_DATA_CONTROL_ZARR)
 
 # training nudged data has rad and precip prescribed from reference
-train_rf: deploy_ml_experiments generate_times_prescribed
+train_rf: deploy_ml_experiments_rf generate_times_prescribed
 	cd workflows/train-evaluate-prognostic-run;  \
 	
 # training nudged data has rad and precip prescribed from reference
-train_nn_random_seeds: deploy_ml_experiments generate_times_prescribed
+train_nn_random_seeds: deploy_ml_experiments_nn generate_times_prescribed
 	cd workflows/train-evaluate-prognostic-run;  \
 	./run_random_seeds.sh \
 		2021-05-11-nudge-to-c3072-corrected-winds/nn \
@@ -64,7 +64,7 @@ train_nn_random_seeds: deploy_ml_experiments generate_times_prescribed
 
 
 # training nudged data does not have any prescribed surface states
-train_rf_control: deploy_ml_experiments generate_times_control
+train_rf_control: deploy_ml_experiments_rf generate_times_control
 	cd workflows/train-evaluate-prognostic-run; \
 	./run.sh \
 		2021-05-11-nudge-to-c3072-corrected-winds/control-rf \
@@ -77,7 +77,7 @@ train_rf_control: deploy_ml_experiments generate_times_control
 
 
 # ensemble model needs offline report generated, as it is only done automatically for its components
-offline_report_nn_ensemble: deploy_ml_experiments generate_times_control
+offline_report_nn_ensemble: deploy_ml_experiments_nn generate_times_control
 	cd workflows/train-evaluate-prognostic-run; \
 	nn-ensemble-models/upload.sh; \
 	./ensemble_offline_report.sh \
@@ -88,7 +88,7 @@ offline_report_nn_ensemble: deploy_ml_experiments generate_times_control
 # training nudged data has rad and precip prescribed from reference
 # runs four initial conditions
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML RF prediction
-prognostic_rf_ics: deploy_ml_experiments
+prognostic_rf_ics: deploy_ml_experiments_rf
 	cd workflows/prognostic-run; \
 	./run_ICs.sh \
 		training-prescribed-ml-tendencies-rad-rf \
@@ -100,7 +100,7 @@ prognostic_rf_ics: deploy_ml_experiments
 # training nudged data has rad and precip prescribed from reference
 # runs four initial conditions
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN ensemble median prediction
-prognostic_nn_ensemble_ics: deploy_ml_experiments
+prognostic_nn_ensemble_ics: deploy_ml_experiments_nn
 	cd workflows/prognostic-run; \
 	./run_ICs.sh \
 		training-prescribed-ml-tendencies-rad-rect-nn \
@@ -111,7 +111,7 @@ prognostic_nn_ensemble_ics: deploy_ml_experiments
 
 # prognostic run using NN 
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
-prognostic_nn_random_seeds: deploy_ml_experiments
+prognostic_nn_random_seeds: deploy_ml_experiments_nn
 	cd workflows/prognostic-run; \
 	./run_random_seeds.sh \
 		nn-random-seeds \
@@ -122,7 +122,7 @@ prognostic_nn_random_seeds: deploy_ml_experiments
 
 # prognostic run using NN ensemble median of seeds 0-3
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
-prognostic_nn_ensemble: deploy_ml_experiments
+prognostic_nn_ensemble: deploy_ml_experiments_nn
 	cd workflows/prognostic-run; \
 	./run.sh \
 		nn-ensemble \
@@ -134,7 +134,7 @@ prognostic_nn_ensemble: deploy_ml_experiments
 
 # training nudged data does not have any prescribed surface states
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML prediction
-prognostic_training_control_ml_tendencies_rad: deploy_ml_experiments
+prognostic_training_control_ml_tendencies_rad: deploy_ml_experiments_rf
 	cd workflows/prognostic-run; \
 	./run.sh \
 		training-control-ml-tendencies-rad \
@@ -146,7 +146,7 @@ prognostic_training_control_ml_tendencies_rad: deploy_ml_experiments
 
 # training nudged data does not have any prescribed surface states
 # prognostic run updates with dQ1, dQ2, dQu, dQv from ML prediction
-prognostic_training_control_ml_tendencies_only: deploy_ml_experiments
+prognostic_training_control_ml_tendencies_only: deploy_ml_experiments_rf
 	cd workflows/prognostic-run; \
 	./run.sh \
 		training-control-ml-tendencies-only \
@@ -155,19 +155,22 @@ prognostic_training_control_ml_tendencies_only: deploy_ml_experiments
 		prognostic-configs/ml-tendencies-only.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-rf/prognostic_run_tendencies_only
 
-prognostic_run_report_nudged_training: deploy_ml_experiments
+prognostic_run_report_nudged_training: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report && ./run.sh nudge-to-3km-nudged-training
 
-prognostic_report_rf_nn_comparison: deploy_ml_experiments
+prognostic_report_rf_nn_comparison: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report; \
 	./run.sh nudge-to-3km-nn-rf-comparison
 
-prognostic_report_sensitivity: deploy_ml_experiments
+prognostic_report_sensitivity: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report; \
 	./run.sh nudge-to-3km-sensitivity
 
-deploy_ml_experiments: kustomize
-	./kustomize build workflows/train-evaluate-prognostic-run | kubectl apply -f -
+deploy_ml_experiments_rf: kustomize
+	./kustomize build workflows/train-evaluate-prognostic-run/kustomize_rf | kubectl apply -f -
+
+deploy_ml_experiments_nn: kustomize
+	./kustomize build workflows/train-evaluate-prognostic-run/kustomize_nn_rectified | kubectl apply -f -	
     
 deploy_nudge_to_fine: kustomize
 	./kustomize build workflows/nudge-to-fine-run | kubectl apply -f -
