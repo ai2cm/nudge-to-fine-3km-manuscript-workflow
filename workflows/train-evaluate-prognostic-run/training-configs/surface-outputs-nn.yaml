@@ -1,9 +1,8 @@
 - name: prephysics_ML_surface_flux_rectified
   config:
     random_seed: 0 
-    model_type: DenseModel
+    model_type: RectifiedDenseModel
     hyperparameters:
-      nonnegative_outputs: true
       loss: mae
       depth: 2
       fit_kwargs:
