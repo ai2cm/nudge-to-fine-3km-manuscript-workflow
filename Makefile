@@ -117,7 +117,7 @@ prognostic_nn_random_seeds: deploy_ml_experiments_nn
 		nn-random-seeds \
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQ1_dQ2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQu_dQv" \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn.yaml \
-		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/prognostic_run_sfc_rad
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/prognostic_run_sfc_rad_rectified
 
 
 # prognostic run using NN ensemble median of seeds 0-3
