@@ -1,7 +1,7 @@
-- name: prephysics_ML_surface_flux
+- name: prephysics_ML_surface_flux_rectified
   config:
     random_seed: 0 
-    model_type: DenseModel
+    model_type: RectifiedDenseModel
     hyperparameters:
       loss: mae
       depth: 2
@@ -13,7 +13,7 @@
       regularizer:
         name: l2
         kwargs:
-          l: 0.02
+          l: 0.0
       optimizer:
         name: Adam
         kwargs:

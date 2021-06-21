@@ -1,0 +1,23 @@
+[
+    {
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-0/prognostic_run_sfc_rad_rectified",
+        "name": "nn-seed-0"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-1/prognostic_run_sfc_rad_rectified",
+        "name": "nn-seed-1"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-2/prognostic_run_sfc_rad_rectified",
+        "name": "nn-seed-2"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-3/prognostic_run_sfc_rad_rectified",
+        "name": "nn-seed-3"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160805-start-rad-step-1800s",
+        "name": "baseline"
+    }
+]
+
