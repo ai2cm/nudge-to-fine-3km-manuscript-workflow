@@ -49,6 +49,14 @@ nudge_to_fine_training_data_zarrs_control:
 # training nudged data has rad and precip prescribed from reference
 train_rf: deploy_ml_experiments_rf generate_times_prescribed
 	cd workflows/train-evaluate-prognostic-run;  \
+	./run.sh \
+		2021-05-11-nudge-to-c3072-corrected-winds/rf \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED_ZARR) \
+		./training-configs/tendency-outputs.yaml \
+		./training-configs/surface-outputs.yaml \
+		train_prescribed_precip_flux.json \
+		test_prescribed_precip_flux.json
 	
 # training nudged data has rad and precip prescribed from reference
 train_nn_random_seeds: deploy_ml_experiments_nn generate_times_prescribed
