@@ -2,15 +2,19 @@
 [
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-rf/prognostic_run_tendencies_only",
-        "name": "training-control-ml-tendencies-only"
+        "name": "training-control-ml-tendencies-only-RF"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-rf/prognostic_run_sfc_rad",
-        "name": "training-control-ml-tendencies-rad"
+        "name": "training-control-ml-tendencies-rad-RF"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/initial_conditions_runs/20160805.000000",
-        "name": "training-prescribed-ml-tendencies-rad"
+        "name": "training-prescribed-ml-tendencies-rad-RF"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad/20160805.000000",
+        "name": "training-prescribed-ml-tendencies-rad-NN"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160805-start-rad-step-1800s",
