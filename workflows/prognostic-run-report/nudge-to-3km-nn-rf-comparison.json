@@ -1,11 +1,11 @@
 [
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/initial_conditions_runs/20160805.000000",
-        "name": "random forest"
+        "name": "random_forest"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad/20160805.000000",
-        "name": "NN ensemble"
+        "name": "NN_ensemble"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160805-start-rad-step-1800s",
