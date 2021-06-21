@@ -21,7 +21,7 @@ namelist:
 prephysics:
   diagnostic_ml: false
   model:
-    - gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-rad-l2-2e-2/seed-n/trained_models/prephysics_ML_surface_flux/
+    - gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/prephysics_ML_surface_flux_rectified/
 fortran_diagnostics:
 - name: sfc_dt_atmos.zarr
   chunks:
