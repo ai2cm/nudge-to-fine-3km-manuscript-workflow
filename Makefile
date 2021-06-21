@@ -6,6 +6,10 @@ TRAINING_DATA_RAD_PRECIP_PRESCRIBED=gs://vcm-ml-experiments/2021-04-13-n2f-c3072
 TRAINING_DATA_CONTROL_ZARR=gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf-training-dataset/training_dataset.zarr
 TRAINING_DATA_CONTROL=gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf
 
+TRAINING_DATA_1_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-1hr
+TRAINING_DATA_6_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-6hr
+TRAINING_DATA_12_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-12hr
+
 FIGURES = figure_x
 
 
@@ -38,13 +42,51 @@ nudge_to_fine_rad_precip_prescribed: deploy_nudge_to_fine
 nudge_to_fine_training_data_zarrs_prescribed:
 	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
 		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED)/state_after_timestep.zarr \
-		gs://vcm-ml-scratch/annak/2021-06-03-test-output
 		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED_ZARR)
 
 nudge_to_fine_training_data_zarrs_control:
 	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
-		$(TRAINING_DATA_CONTROL) \
+		$(TRAINING_DATA_CONTROL)/state_after_timestep.zarr \
 		$(TRAINING_DATA_CONTROL_ZARR)
+
+nudge_to_fine_training_data_zarrs_timescales:
+	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
+		$(TRAINING_DATA_1_HR_TIMESCALE)/state_after_timestep.zarr \
+		$(TRAINING_DATA_1_HR_TIMESCALE)/prescribed_training_data.zarr
+	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
+		$(TRAINING_DATA_6_HR_TIMESCALE)/state_after_timestep.zarr \
+		$(TRAINING_DATA_6_HR_TIMESCALE)/prescribed_training_data.zarr
+	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
+		$(TRAINING_DATA_12_HR_TIMESCALE)/state_after_timestep.zarr \
+		$(TRAINING_DATA_12_HR_TIMESCALE)/prescribed_training_data.zarr
+
+# train NN models on 1/6/12 hr nudging timescale data
+train_timescale_sensitivites: deploy_ml_experiments generate_times_prescribed
+	cd workflows/train-evaluate-prognostic-run;  \
+	./run.sh \
+		2021-05-11-nudge-to-c3072-corrected-winds/nudging_timescale_sensitivity/nn_tau_1_hr \
+		$(TRAINING_DATA_1_HR_TIMESCALE) \
+		$(TRAINING_DATA_1_HR_TIMESCALE)/prescribed_training_data.zarr
+		./training-configs/tendency-outputs-nn.yaml \
+		./training-configs/surface-outputs-nn.yaml \
+		train_prescribed_precip_flux.json \
+		test_prescribed_precip_flux.json
+	./run.sh \
+		2021-05-11-nudge-to-c3072-corrected-winds/nudging_timescale_sensitivity/nn_tau_6_hr \
+		$(TRAINING_DATA_6_HR_TIMESCALE) \
+		$(TRAINING_DATA_6_HR_TIMESCALE)/prescribed_training_data.zarr
+		./training-configs/tendency-outputs-nn.yaml \
+		./training-configs/surface-outputs-nn.yaml \
+		train_prescribed_precip_flux.json \
+		test_prescribed_precip_flux.json
+	./run.sh \
+		2021-05-11-nudge-to-c3072-corrected-winds/nudging_timescale_sensitivity/nn_tau_12_hr \
+		$(TRAINING_DATA_12_HR_TIMESCALE) \
+		$(TRAINING_DATA_12_HR_TIMESCALE)/prescribed_training_data.zarr
+		./training-configs/tendency-outputs-nn.yaml \
+		./training-configs/surface-outputs-nn.yaml \
+		train_prescribed_precip_flux.json \
+		test_prescribed_precip_flux.json
 
 # training nudged data has rad and precip prescribed from reference
 train_rf: deploy_ml_experiments generate_times_prescribed
