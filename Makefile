@@ -252,9 +252,9 @@ prognostic_report_ic_ensembles: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report; \
 	./run.sh nudge-to-3km-ic-ensembles
     
-prognostic_report_ic_ensembles-dq1-dq2-only: deploy_ml_experiments_rf
+prognostic_report_compare_dq1_dq2_only: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report; \
-	./run.sh nudge-to-3km-ic-ensembles-dq1-dq2-only
+	./run.sh nudge-to-3km-compare-dq1-dq2-only
 
 deploy_ml_experiments_rf: kustomize
 	./kustomize build workflows/train-evaluate-prognostic-run/kustomize_rf | kubectl apply -f -
