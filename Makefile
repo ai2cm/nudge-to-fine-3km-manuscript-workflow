@@ -49,7 +49,27 @@ nudge_to_fine_training_data_zarrs_control:
 # training nudged data has rad and precip prescribed from reference
 train_rf: deploy_ml_experiments_rf generate_times_prescribed
 	cd workflows/train-evaluate-prognostic-run;  \
-	
+	./run.sh \
+		2021-05-11-nudge-to-c3072-corrected-winds/rf \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED_ZARR) \
+		./training-configs/tendency-outputs.yaml \
+		./training-configs/surface-outputs.yaml \
+		train_prescribed_precip_flux.json \
+		test_prescribed_precip_flux.json
+        
+# training nudged data has rad and precip prescribed from reference
+train_rf_dQ1_dQ2_only: deploy_ml_experiments_rf generate_times_prescribed
+	cd workflows/train-evaluate-prognostic-run;  \
+	./run.sh \
+		2021-06-21-nudge-to-c3072-dq1-dq2-only/rf \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED_ZARR) \
+		./training-configs/tendency-outputs-dQ1-dQ2-only.yaml \
+		./training-configs/surface-outputs.yaml \
+		train_prescribed_precip_flux.json \
+		test_prescribed_precip_flux.json
+
 # training nudged data has rad and precip prescribed from reference
 train_nn_random_seeds: deploy_ml_experiments_nn generate_times_prescribed
 	cd workflows/train-evaluate-prognostic-run;  \
@@ -61,7 +81,18 @@ train_nn_random_seeds: deploy_ml_experiments_nn generate_times_prescribed
 		./training-configs/surface-outputs-nn.yaml \
 		train_prescribed_precip_flux.json \
 		test_prescribed_precip_flux.json
-
+        
+# training nudged data has rad and precip prescribed from reference
+train_nn_random_seeds_dQ1_dQ2_only: deploy_ml_experiments_nn generate_times_prescribed
+	cd workflows/train-evaluate-prognostic-run;  \
+	./run_random_seeds.sh \
+		2021-06-21-nudge-to-c3072-dq1-dq2-only/nn \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED_ZARR) \
+		./training-configs/tendency-outputs-dQ1-dQ2-only-nn.yaml \
+		./training-configs/surface-outputs-nn.yaml \
+		train_prescribed_precip_flux.json \
+		test_prescribed_precip_flux.json
 
 # training nudged data does not have any prescribed surface states
 train_rf_control: deploy_ml_experiments_rf generate_times_control
@@ -99,6 +130,18 @@ prognostic_rf_ics: deploy_ml_experiments_rf
 
 # training nudged data has rad and precip prescribed from reference
 # runs four initial conditions
+# prognostic run updates with dQ1, dQ2, and rad from ML RF prediction
+prognostic_rf_dQ1_dQ2_only_ics: deploy_ml_experiments_rf
+	cd workflows/prognostic-run; \
+	./run_ICs.sh \
+		training-prescribed-ml-tendencies-rad-rf \
+		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/trained_models/postphysics_ML_tendencies \
+		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-rf.yaml \
+		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs
+
+
+# training nudged data has rad and precip prescribed from reference
+# runs four initial conditions
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN ensemble median prediction
 prognostic_nn_ensemble_ics: deploy_ml_experiments_nn
 	cd workflows/prognostic-run; \
@@ -107,6 +150,18 @@ prognostic_nn_ensemble_ics: deploy_ml_experiments_nn
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dqu-dqv" \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad
+        
+        
+# training nudged data has rad and precip prescribed from reference
+# runs four initial conditions
+# prognostic run updates with dQ1, dQ2 and rad from ML NN ensemble median prediction
+prognostic_nn_ensemble_dQ1_dQ2_only_ics: deploy_ml_experiments_nn
+	cd workflows/prognostic-run; \
+	./run_ICs.sh \
+		training-prescribed-ml-tendencies-rad-nn \
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 \
+		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
+		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs
 
 
 # prognostic run using NN 
@@ -120,6 +175,17 @@ prognostic_nn_random_seeds: deploy_ml_experiments_nn
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/prognostic_run_sfc_rad_rectified
 
 
+# prognostic run using NN 
+# prognostic run updates with dQ1, dQ2 and rad from ML NN prediction
+prognostic_nn_random_seeds_dQ1_dQ2_only: deploy_ml_experiments_nn
+	cd workflows/prognostic-run; \
+	./run_random_seeds.sh \
+		nn-random-seeds-dq1-dq2-only \
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQ1_dQ2 \
+		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn.yaml \
+		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn/seed-n/prognostic_run_sfc_rad
+
+
 # prognostic run using NN ensemble median of seeds 0-3
 # prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
 prognostic_nn_ensemble: deploy_ml_experiments_nn
@@ -130,6 +196,18 @@ prognostic_nn_ensemble: deploy_ml_experiments_nn
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dqu-dqv" \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/prognostic_run_sfc_rad_l2_1e-2
+        
+        
+# prognostic run using NN ensemble median of seeds 0-3
+# prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
+prognostic_nn_ensemble_dQ1_dQ2_only: deploy_ml_experiments_nn
+	cd workflows/prognostic-run; \
+	./run.sh \
+		nn-ensemble-dq1-dq2-only \
+		"20160805.000000" \
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 \
+		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
+		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/prognostic_run
  
 
 # training nudged data does not have any prescribed surface states
