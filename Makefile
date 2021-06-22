@@ -25,6 +25,12 @@ generate_times_control:
 		workflows/train-evaluate-prognostic-run/train_control.json \
 		workflows/train-evaluate-prognostic-run/test_control.json
 
+generate_times_nudging_sensitivity:
+	python workflows/train-evaluate-prognostic-run/generate_times.py \
+		$(TRAINING_DATA_1_HR_TIMESCALE) \
+		workflows/train-evaluate-prognostic-run/train_tau_sensitivity.json \
+		workflows/train-evaluate-prognostic-run/test_tau_sensitivity.json
+
 # nudged to fine run where we do not set any states based on fine-resolution data, 
 # use a radiation timestep of 1800 seconds, start the simulation at 20160801.010000, 
 # and use the TKE-EDMF turbulence scheme
