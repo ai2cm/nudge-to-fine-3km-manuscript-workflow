@@ -16,14 +16,14 @@ FIGURES = figure_x
 generate_times_prescribed:
 	python workflows/train-evaluate-prognostic-run/generate_times.py \
 		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
-		train_prescribed_precip_flux.json \
-		test_prescribed_precip_flux.json 
+		workflows/train-evaluate-prognostic-run/train_prescribed_precip_flux.json \
+		workflows/train-evaluate-prognostic-run/test_prescribed_precip_flux.json 
 
 generate_times_control:
 	python workflows/train-evaluate-prognostic-run/generate_times.py \
 		$(TRAINING_DATA_CONTROL) \
-		train_control.json \
-		test_control.json
+		workflows/train-evaluate-prognostic-run/train_control.json \
+		workflows/train-evaluate-prognostic-run/test_control.json
 
 # nudged to fine run where we do not set any states based on fine-resolution data, 
 # use a radiation timestep of 1800 seconds, start the simulation at 20160801.010000, 
