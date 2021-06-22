@@ -67,32 +67,40 @@ nudge_to_fine_training_data_zarrs_timescales:
 		$(TRAINING_DATA_12_HR_TIMESCALE)/prescribed_training_data.zarr
 
 # train NN models on 1/6/12 hr nudging timescale data
-train_timescale_sensitivites: deploy_ml_experiments generate_times_prescribed
+train_timescale_sensitivites: deploy_ml_experiments_nn generate_times_nudging_sensitivity
 	cd workflows/train-evaluate-prognostic-run;  \
 	./run.sh \
-		2021-05-11-nudge-to-c3072-corrected-winds/nudging_timescale_sensitivity/nn_tau_1_hr \
+		2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-1-hr \
 		$(TRAINING_DATA_1_HR_TIMESCALE) \
-		$(TRAINING_DATA_1_HR_TIMESCALE)/prescribed_training_data.zarr
+		$(TRAINING_DATA_1_HR_TIMESCALE)/prescribed_training_data.zarr \
 		./training-configs/tendency-outputs-nn.yaml \
 		./training-configs/surface-outputs-nn.yaml \
-		train_prescribed_precip_flux.json \
-		test_prescribed_precip_flux.json
+		train_tau_sensitivity.json \
+		test_tau_sensitivity.json
 	./run.sh \
-		2021-05-11-nudge-to-c3072-corrected-winds/nudging_timescale_sensitivity/nn_tau_6_hr \
+		2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-6-hr \
 		$(TRAINING_DATA_6_HR_TIMESCALE) \
-		$(TRAINING_DATA_6_HR_TIMESCALE)/prescribed_training_data.zarr
+		$(TRAINING_DATA_6_HR_TIMESCALE)/prescribed_training_data.zarr \
 		./training-configs/tendency-outputs-nn.yaml \
 		./training-configs/surface-outputs-nn.yaml \
-		train_prescribed_precip_flux.json \
-		test_prescribed_precip_flux.json
+		train_tau_sensitivity.json \
+		test_tau_sensitivity.json
 	./run.sh \
-		2021-05-11-nudge-to-c3072-corrected-winds/nudging_timescale_sensitivity/nn_tau_12_hr \
+		2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-12-hr \
 		$(TRAINING_DATA_12_HR_TIMESCALE) \
-		$(TRAINING_DATA_12_HR_TIMESCALE)/prescribed_training_data.zarr
+		$(TRAINING_DATA_12_HR_TIMESCALE)/prescribed_training_data.zarr \
 		./training-configs/tendency-outputs-nn.yaml \
 		./training-configs/surface-outputs-nn.yaml \
-		train_prescribed_precip_flux.json \
-		test_prescribed_precip_flux.json
+		train_tau_sensitivity.json \
+		test_tau_sensitivity.json
+
+# prognostic runs for nudging timescale sensitivity experiment
+prognostic_timescale_sensitivity:  deploy_ml_experiments_nn 
+	cd workflows/timescale-sensitivity-prognostic-run; \
+	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-1-hr 1; \
+	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-6-hr 6; \
+	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-12-hr 12;
+
 
 # training nudged data has rad and precip prescribed from reference
 train_rf: deploy_ml_experiments_rf generate_times_prescribed
