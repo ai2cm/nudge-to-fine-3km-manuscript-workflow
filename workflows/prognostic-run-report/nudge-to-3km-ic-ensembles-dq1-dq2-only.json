@@ -1,0 +1,54 @@
+[
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs/20160805.000000",
+        "name": "RF-IC-August-05"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs/20160813.000000",
+        "name": "RF-IC-August-13"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs/20160821.000000",
+        "name": "RF-IC-August-21"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs/20160829.000000",
+        "name": "RF-IC-August-29"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160805.000000",
+        "name": "NN-ens-IC-August-05"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160813.000000",
+        "name": "NN-ens-IC-August-13"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160821.000000",
+        "name": "NN-ens-IC-August-21"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160829.000000",
+        "name": "NN-ens-IC-August-29"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn/seed-0/prognostic_run_sfc_rad",
+        "name": "NN-seed-0-IC-August-05"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn/seed-1/prognostic_run_sfc_rad",
+        "name": "NN-seed-0-IC-August-05"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn/seed-2/prognostic_run_sfc_rad",
+        "name": "NN-seed-0-IC-August-05"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn/seed-3/prognostic_run_sfc_rad",
+        "name": "NN-seed-0-IC-August-05"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/prognostic_run",
+        "name": "NN-ens-August-05"
+    }
+]
