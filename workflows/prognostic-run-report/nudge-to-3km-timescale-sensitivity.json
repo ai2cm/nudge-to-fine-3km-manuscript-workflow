@@ -1,0 +1,23 @@
+[
+    {
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-1-hr/prognostic_run_sfc_flux",
+        "name": "tau-1-hr"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-0/prognostic_run_sfc_rad_rectified",
+        "name": "tau-3-hr"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-6-hr/prognostic_run_sfc_flux",
+        "name": "tau-6-hr"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-12-hr/prognostic_run_sfc_flux",
+        "name": "tau-12-hr"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160805-start-rad-step-1800s",
+        "name": "baseline"
+    }
+]
+
