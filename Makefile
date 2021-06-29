@@ -163,6 +163,18 @@ prognostic_training_control_ml_tendencies_only: deploy_ml_experiments_rf
 		prognostic-configs/ml-tendencies-only.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-rf/prognostic_run_tendencies_only
 
+# training nudged data does not have any prescribed surface states
+# prognostic run updates with dQ1, dQ2, dQu, dQv from ML prediction
+# Same as above but generates ensemble of ICs
+prognostic_training_control_ml_tendencies_only_ics: deploy_ml_experiments_rf
+	cd workflows/prognostic-run; \
+	./run_ICs.sh \
+		training-control-ml-tendencies-only \
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-rf/trained_models/postphysics_ML_tendencies \
+		prognostic-configs/ml-tendencies-only.yaml \
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-rf/prognostic_run_tendencies_only_ics
+
+
 prognostic_run_report_nudged_training: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report && ./run.sh nudge-to-3km-nudged-training
 
