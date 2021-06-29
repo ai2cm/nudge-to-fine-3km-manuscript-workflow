@@ -1,0 +1,27 @@
+- name: postphysics_ML_tendencies
+  config:
+    random_seed: 0 
+    model_type: sklearn_random_forest
+    hyperparameters:
+      max_depth: 13
+      n_estimators: 1
+    batch_function: batches_from_geodata
+    batch_kwargs:
+      timesteps_per_batch: 10
+      mapping_function: open_nudge_to_fine
+      mapping_kwargs: 
+        nudging_variables:
+          - "air_temperature"
+          - "specific_humidity"
+          - "x_wind"
+          - "y_wind"
+          - "pressure_thickness_of_atmospheric_layer"
+    input_variables:
+      - cos_zenith_angle
+      - land_sea_mask
+      - surface_geopotential
+      - air_temperature
+      - specific_humidity
+    output_variables:
+      - dQ1
+      - dQ2
