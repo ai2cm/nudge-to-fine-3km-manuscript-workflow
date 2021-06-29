@@ -1,0 +1,11 @@
+{
+    "variable": "land_surface_precipitation_bias",
+    "units": "mm/day",
+    "baseline-no-ML": 1.0934585817404152,
+    "temperature-moisture-RF": 0.7961277209299071,
+    "temperature-moisture-winds-RF": 0.9375444688838404,
+    "temperature-moisture-winds-prescribed-sfc-RF": 0.3590860645914807,
+    "temperature-moisture-winds-prescribed-sfc-NN-ensemble": 0.0029642320028052194,
+    "temperature-moisture-prescribed-sfc-RF": 0.11509740109124555,
+    "temperature-moisture-prescribed-sfc-NN-ensemble": 0.036406451144854995
+}
