@@ -2,4 +2,5 @@ kustomize
 .ipynb_checkpoints
 notebooks/figures/*.png
 notebooks/figures/*.mp4
+notebooks/figures/*.json
 *.nbconvert.ipynb
