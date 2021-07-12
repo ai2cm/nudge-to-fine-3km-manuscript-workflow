@@ -1,0 +1,24 @@
+[
+    {
+        "variable": "land_surface_precipitation_bias",
+        "units": "mm/day",
+        "base-no-ML": 1.0934585817404152,
+        "Tq-RF": 0.7961277209299071,
+        "Tquv-RF": 0.9375444688838404,
+        "TquvR-RF": 0.3590860645914807,
+        "TquvR-NN": 0.0029642320028052194,
+        "TqR-RF": 0.11509740109124555,
+        "TqR-NN": 0.036406451144854995
+    },
+    {
+        "variable": "global_surface_precipitation_rmse",
+        "units": "mm/day",
+        "base-no-ML": 3.6555712386790558,
+        "Tq-RF": 2.659678159772313,
+        "Tquv-RF": 2.722468136517124,
+        "TquvR-RF": 2.568615669093017,
+        "TquvR-NN": 2.5275295530397375,
+        "TqR-RF": 2.5385950830382606,
+        "TqR-NN": 2.556271255952553
+    }
+]
