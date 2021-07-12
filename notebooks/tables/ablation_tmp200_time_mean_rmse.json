@@ -2,12 +2,12 @@
     {
         "variable": "TMP200_rmse",
         "units": "K",
-        "baseline-no-ML": 3.0307140350341797,
-        "temperature-moisture-RF": 2.9655070304870605,
-        "temperature-moisture-winds-RF": 5.320916652679443,
-        "temperature-moisture-winds-prescribed-sfc-RF": 5.34125280380249,
-        "temperature-moisture-winds-prescribed-sfc-NN-ensemble": 3.854490041732788,
-        "temperature-moisture-prescribed-sfc-RF": 2.854674816131592,
-        "temperature-moisture-prescribed-sfc-NN-ensemble": 2.7302141189575195
+        "base-no-ML": 3.4360039234161377,
+        "Tq-RF": 3.161888837814331,
+        "Tquv-RF": 5.007255554199219,
+        "TquvR-RF": 5.085434913635254,
+        "TquvR-NN-ensemble": 3.8764889240264893,
+        "TqR-RF": 3.0642948150634766,
+        "TqR-NN-ensemble": 3.0662548542022705
     }
 ]
