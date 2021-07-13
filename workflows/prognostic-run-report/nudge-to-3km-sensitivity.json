@@ -1,23 +1,26 @@
-
 [
     {
-        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-rf/prognostic_run_tendencies_only",
-        "name": "training-control-ml-tendencies-only-RF"
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-dq1-dq2-rf/initial_conditions_runs/20160805.000000,
+        "name": "Tq-RF"
     },
     {
-        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-rf/prognostic_run_sfc_rad",
-        "name": "training-control-ml-tendencies-rad-RF"
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs/20160805.000000,
+        "name": "TqR-RF"
     },
     {
-        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/initial_conditions_runs/20160805.000000",
-        "name": "training-prescribed-ml-tendencies-rad-RF"
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/initial_conditions_runs/20160805.000000,
+        "name": "TquvR-RF"
     },
     {
-        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad/20160805.000000",
-        "name": "training-prescribed-ml-tendencies-rad-NN"
+        "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad/20160805.000000,
+        "name": "TquvR-NN"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160805.000000,
+        "name": "TqR-NN"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160805-start-rad-step-1800s",
-        "name": "baseline"
+        "name": "base no-ML"
     }
 ]
