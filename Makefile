@@ -160,10 +160,20 @@ prognostic_TquvR_nn_ensemble_ics: deploy_ml_experiments_nn
 prognostic_TqR_nn_random_seeds: deploy_ml_experiments_nn
 	cd workflows/prognostic-run; \
 	./run_random_seeds.sh \
-		nn-random-seeds-dq1-dq2-only \
+		nn-TqR-random-seeds \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQ1_dQ2 \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn.yaml \
 		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn/seed-n/prognostic_run_sfc_rad
+        
+# prognostic run using NN 
+# prognostic run updates with dQ1, dQ2, dQu, dQv, and rad from ML NN prediction
+prognostic_TquvR_nn_random_seeds: deploy_ml_experiments_nn
+	cd workflows/prognostic-run; \
+	./run_random_seeds.sh \
+		nn-TquvR-random-seeds \
+		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQ1_dQ2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQu_dQv" \
+		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn.yaml \
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/prognostic_run_sfc_rad_rectified
 
 prognostic_run_report_nudged_training: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report && ./run.sh nudge-to-3km-nudged-training
