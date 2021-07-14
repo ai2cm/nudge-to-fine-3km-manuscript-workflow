@@ -106,7 +106,7 @@ offline_report_nn_ensemble: deploy_ml_experiments_nn generate_times_control
 prognostic_Tq_rf_ics: deploy_ml_experiments_rf
 	cd workflows/prognostic-run; \
 	./run_ICs.sh \
-		training-control-Tq-rf \
+		training-control-tq-rf \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-dq1-dq2-rf/trained_models/postphysics_ML_tendencies \
 		prognostic-configs/ml-tendencies-only.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-dq1-dq2-rf/initial_conditions_runs
@@ -117,7 +117,7 @@ prognostic_Tq_rf_ics: deploy_ml_experiments_rf
 prognostic_TqR_rf_ics: deploy_ml_experiments_rf
 	cd workflows/prognostic-run; \
 	./run_ICs.sh \
-		training-prescribed-TqR-rad-rf \
+		training-prescribed-tqr-rad-rf \
 		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/trained_models/postphysics_ML_tendencies \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-rf.yaml \
 		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs
@@ -128,7 +128,7 @@ prognostic_TqR_rf_ics: deploy_ml_experiments_rf
 prognostic_TquvR_rf_ics: deploy_ml_experiments_rf
 	cd workflows/prognostic-run; \
 	./run_ICs.sh \
-		training-prescribed-TquvR-rad-rf \
+		training-prescribed-tquvr-rad-rf \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/trained_models/postphysics_ML_tendencies \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-rf.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/initial_conditions_runs
@@ -139,7 +139,7 @@ prognostic_TquvR_rf_ics: deploy_ml_experiments_rf
 prognostic_TqR_nn_ensemble_ics: deploy_ml_experiments_nn
 	cd workflows/prognostic-run; \
 	./run_ICs.sh \
-		training-prescribed-Tq-rad-rect-nn \
+		training-prescribed-tq-rad-rect-nn \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
 		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs
@@ -150,7 +150,7 @@ prognostic_TqR_nn_ensemble_ics: deploy_ml_experiments_nn
 prognostic_TquvR_nn_ensemble_ics: deploy_ml_experiments_nn
 	cd workflows/prognostic-run; \
 	./run_ICs.sh \
-		training-prescribed-Tquv-rad-rect-nn \
+		training-prescribed-tquv-rad-rect-nn \
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dqu-dqv" \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad
@@ -160,7 +160,7 @@ prognostic_TquvR_nn_ensemble_ics: deploy_ml_experiments_nn
 prognostic_TqR_nn_random_seeds: deploy_ml_experiments_nn
 	cd workflows/prognostic-run; \
 	./run_random_seeds.sh \
-		nn-TqR-random-seeds \
+		nn-tqr-random-seeds \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQ1_dQ2 \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn.yaml \
 		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn/seed-n/prognostic_run_sfc_rad
@@ -170,7 +170,7 @@ prognostic_TqR_nn_random_seeds: deploy_ml_experiments_nn
 prognostic_TquvR_nn_random_seeds: deploy_ml_experiments_nn
 	cd workflows/prognostic-run; \
 	./run_random_seeds.sh \
-		nn-TquvR-random-seeds \
+		nn-tquvr-random-seeds \
 		"gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQ1_dQ2 --model_url gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/trained_models/postphysics_ML_dQu_dQv" \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/prognostic_run_sfc_rad_rectified
