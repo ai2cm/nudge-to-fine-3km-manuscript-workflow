@@ -67,10 +67,10 @@ diagnostics:
   - longitude
 - name: physics_tendencies.zarr
   chunks:
-    time: 16
+    time: 8
   times:
-    frequency: 5400
-    kind: interval
+    frequency: 10800
+    kind: interval-average
   variables:
   - tendency_of_air_temperature_due_to_fv3_physics
   - tendency_of_specific_humidity_due_to_fv3_physics
