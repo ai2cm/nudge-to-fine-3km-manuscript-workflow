@@ -143,6 +143,17 @@ prognostic_TqR_nn_ensemble_ics: deploy_ml_experiments_nn
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
 		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs
+        
+# training nudged data has rad and precip prescribed from reference
+# runs four initial conditions
+# prognostic run updates with dQ1, dQ2 from NN ensemble and rad from RF
+prognostic_Tq_nn_ensemble_R_rf_ics: deploy_ml_experiments_nn
+	cd workflows/prognostic-run; \
+	./run_ICs.sh \
+		training-prescribed-tq-nn-rad-rf \
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 \
+		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-nn-ensemble-rad-rf.yaml \
+		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs_rad_rf
 
 # training nudged data has rad and precip prescribed from reference
 # runs four initial conditions
