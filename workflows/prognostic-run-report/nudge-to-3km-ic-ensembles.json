@@ -1,51 +1,83 @@
 [
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-dq1-dq2-rf/initial_conditions_runs/20160805.000000",
-        "name": "RF-control-dq1-dq2-IC-August-05"
+        "name": "Tq-RF-IC-August-05"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-dq1-dq2-rf/initial_conditions_runs/20160813.000000",
-        "name": "RF-control-dq1-dq2-IC-August-13"
+        "name": "Tq-RF-IC-August-13"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-dq1-dq2-rf/initial_conditions_runs/20160821.000000",
-        "name": "RF-control-dq1-dq2-IC-August-21"
+        "name": "Tq-RF-IC-August-21"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/control-dq1-dq2-rf/initial_conditions_runs/20160829.000000",
-        "name": "RF-control-dq1-dq2-IC-August-29"
+        "name": "Tq-RF-IC-August-29"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs/20160805.000000",
+        "name": "TqR-RF-IC-August-05"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs/20160813.000000",
+        "name": "TqR-RF-IC-August-13"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs/20160821.000000",
+        "name": "TqR-RF-IC-August-21"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/rf/initial_conditions_runs/20160829.000000",
+        "name": "TqR-RF-IC-August-29"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/initial_conditions_runs/20160805.000000",
-        "name": "RF-IC-August-05"
+        "name": "TquvR-RF-IC-August-05"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/initial_conditions_runs/20160813.000000",
-        "name": "RF-IC-August-13"
+        "name": "TquvR-RF-IC-August-13"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/initial_conditions_runs/20160821.000000",
-        "name": "RF-IC-August-21"
+        "name": "TquvR-RF-IC-August-21"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/rf/initial_conditions_runs/20160829.000000",
-        "name": "RF-IC-August-29"
+        "name": "TquvR-RF-IC-August-29"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad/20160805.000000",
-        "name": "NN-ens-IC-August-05"
+        "name": "TquvR-NN-IC-August-05"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad/20160813.000000",
-        "name": "NN-ens-IC-August-13"
+        "name": "TquvR-NN-IC-August-13"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad/20160821.000000",
-        "name": "NN-ens-IC-August-21"
+        "name": "TquvR-NN-IC-August-21"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/initial_conditions_runs_rectified_nn_rad/20160829.000000",
-        "name": "NN-ens-IC-August-29"
+        "name": "TquvR-NN-IC-August-29"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160805.000000",
+        "name": "TqR-NN-IC-August-05"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160813.000000",
+        "name": "TqR-NN-IC-August-13"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160821.000000",
+        "name": "TqR-NN-IC-August-21"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160829.000000",
+        "name": "TqR-NN-IC-August-29"
     },
     {
         "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160805-start-rad-step-1800s",
