@@ -10,7 +10,7 @@ TRAINING_DATA_1_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timesc
 TRAINING_DATA_6_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-6hr
 TRAINING_DATA_12_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-12hr
 
-FIGURES = (Figure-1 Figure-2 Figure-3 Figure-5 Figure-6 Figure-A1 Figure-A2 Figure-A5 Figure-A7 Table-2)
+FIGURES = (Figure-1 Figure-2 Figure-3 Figure-4 Figure-5 Figure-6 Figure-8 Figure-9 Figure-A1 Figure-A2 Figure-A5 Figure-A6 Figure-A7 Figure-A8 Table-2)
 
 generate_times_prescribed:
 	python workflows/train-evaluate-prognostic-run/generate_times.py \
@@ -44,6 +44,10 @@ nudge_to_fine_rad_precip_prescribed: deploy_nudge_to_fine
 	cd workflows/nudge-to-fine-run; \
 	./nudged-run-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf.sh
 
+nudge_to_fine_timescale_sensitivity: deploy_nudge_to_fine
+	cd workflows/timescale-sensitivity-nudge-to-fine-run; \
+	./run.sh
+
 nudge_to_fine_training_data_zarrs_prescribed:
 	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
 		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED)/state_after_timestep.zarr \
@@ -53,16 +57,6 @@ nudge_to_fine_training_data_zarrs_control:
 	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
 		$(TRAINING_DATA_CONTROL)/state_after_timestep.zarr \
 		$(TRAINING_DATA_CONTROL_ZARR)
-        
-# training nudged data has rad and precip prescribed from reference
-train_Tq_rf: deploy_ml_experiments_rf generate_times_control
-	cd workflows/train-evaluate-prognostic-run;  \
-	./run_control_dQ1_dQ2.sh \
-		2021-05-11-nudge-to-c3072-corrected-winds/control-dq1-dq2-rf \
-		$(TRAINING_DATA_CONTROL) \
-		./training-configs/tendency-outputs-dQ1-dQ2-rf.yaml \
-		train_control.json \
-		test_control.json
 
 nudge_to_fine_training_data_zarrs_timescales:
 	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
@@ -74,6 +68,16 @@ nudge_to_fine_training_data_zarrs_timescales:
 	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
 		$(TRAINING_DATA_12_HR_TIMESCALE)/state_after_timestep.zarr \
 		$(TRAINING_DATA_12_HR_TIMESCALE)/prescribed_training_data.zarr
+    
+# training nudged data has rad and precip prescribed from reference
+train_Tq_rf: deploy_ml_experiments_rf generate_times_control
+	cd workflows/train-evaluate-prognostic-run;  \
+	./run_control_dQ1_dQ2.sh \
+		2021-05-11-nudge-to-c3072-corrected-winds/control-dq1-dq2-rf \
+		$(TRAINING_DATA_CONTROL) \
+		./training-configs/tendency-outputs-dQ1-dQ2-rf.yaml \
+		train_control.json \
+		test_control.json
 
 # train NN models on 1/6/12 hr nudging timescale data
 train_timescale_sensitivites: deploy_ml_experiments_nn generate_times_nudging_sensitivity
@@ -102,13 +106,6 @@ train_timescale_sensitivites: deploy_ml_experiments_nn generate_times_nudging_se
 		./training-configs/surface-outputs-nn.yaml \
 		train_tau_sensitivity.json \
 		test_tau_sensitivity.json
-
-# prognostic runs for nudging timescale sensitivity experiment
-prognostic_timescale_sensitivity:  deploy_ml_experiments_nn 
-	cd workflows/timescale-sensitivity-prognostic-run; \
-	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-1-hr 1; \
-	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-6-hr 6; \
-	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-12-hr 12;
 
 
 # training nudged data has rad and precip prescribed from reference
@@ -230,6 +227,13 @@ prognostic_TquvR_nn_random_seeds: deploy_ml_experiments_nn
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/prognostic_run_sfc_rad_rectified
 
+# prognostic runs for nudging timescale sensitivity experiment
+prognostic_timescale_sensitivity:  deploy_ml_experiments_nn 
+	cd workflows/timescale-sensitivity-prognostic-run; \
+	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-1-hr 1; \
+	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-6-hr 6; \
+	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-12-hr 12;
+
 prognostic_run_report_nudged_training: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report && ./run.sh nudge-to-3km-nudged-training
     
@@ -244,6 +248,10 @@ prognostic_report_nn_seeds: deploy_ml_experiments_rf
 prognostic_report_sensitivity: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report; \
 	./run.sh nudge-to-3km-sensitivity
+
+prognostic_report_nudging_timescale: deploy_ml_experiments_rf
+	cd workflows/prognostic-run-report; \
+	./run.sh nudge-to-3km-timescale-sensitivity
 
 deploy_ml_experiments_rf: kustomize
 	./kustomize build workflows/train-evaluate-prognostic-run/kustomize_rf | kubectl apply -f -
