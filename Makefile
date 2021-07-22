@@ -152,7 +152,7 @@ offline_report_nn_ensemble: deploy_ml_experiments_nn generate_times_control
 	cd workflows/train-evaluate-prognostic-run; \
 	nn-ensemble-models/upload.sh; \
 	./ensemble_offline_report.sh \
-		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model \
+		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model-rectified \
 		gs://vcm-ml-public/offline_ml_diags/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model-rectified
         
 # training nudged data does not have any prescribed surface states
