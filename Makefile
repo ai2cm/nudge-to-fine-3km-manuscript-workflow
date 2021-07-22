@@ -6,7 +6,7 @@ TRAINING_DATA_RAD_PRECIP_PRESCRIBED=gs://vcm-ml-experiments/2021-04-13-n2f-c3072
 TRAINING_DATA_CONTROL_ZARR=gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf-training-dataset/training_dataset.zarr
 TRAINING_DATA_CONTROL=gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf
 
-FIGURES = (Figure-1 Figure-2 Figure-3 Figure-5 Figure-6 Figure-A1 Figure-A2 Figure-A5 Figure-A7)
+FIGURES = (Figure-1 Figure-2 Figure-3 Figure-5 Figure-6 Figure-A1 Figure-A2 Figure-A5 Figure-A7 Table-2)
 
 generate_times_prescribed:
 	python workflows/train-evaluate-prognostic-run/generate_times.py \
