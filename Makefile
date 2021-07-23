@@ -152,6 +152,15 @@ offline_report_nn_ensemble: deploy_ml_experiments_nn generate_times_control
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model-rectified \
 		gs://vcm-ml-public/offline_ml_diags/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model-rectified
         
+# baseline no-ML prognostic runs at different start times
+prognostic_baseline: deploy_ml_experiments_rf
+	cd workflows/prognostic-run; \
+	./run_baseline.sh 20160801.010000; \
+	./run_baseline.sh 20160805.000000; \
+	./run_baseline.sh 20160813.000000; \
+	./run_baseline.sh 20160821.000000; \
+	./run_baseline.sh 20160829.000000
+        
 # training nudged data does not have any prescribed surface states
 # runs four initial conditions
 # prognostic run updates with dQ1, dQ2 from ML RF prediction
