@@ -6,19 +6,29 @@ TRAINING_DATA_RAD_PRECIP_PRESCRIBED=gs://vcm-ml-experiments/2021-04-13-n2f-c3072
 TRAINING_DATA_CONTROL_ZARR=gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf-training-dataset/training_dataset.zarr
 TRAINING_DATA_CONTROL=gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-control-30-min-rad-timestep-shifted-start-tke-edmf
 
+TRAINING_DATA_1_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-1hr
+TRAINING_DATA_6_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-6hr
+TRAINING_DATA_12_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-12hr
+
 FIGURES = (Figure-1 Figure-2 Figure-3 Figure-4 Figure-5 Figure-6 Figure-8 Figure-9 Figure-A1 Figure-A2 Figure-A5 Figure-A6 Figure-A7 Figure-A8 Table-2)
 
 generate_times_prescribed:
 	python workflows/train-evaluate-prognostic-run/generate_times.py \
 		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
-		train_prescribed_precip_flux.json \
-		test_prescribed_precip_flux.json 
+		workflows/train-evaluate-prognostic-run/train_prescribed_precip_flux.json \
+		workflows/train-evaluate-prognostic-run/test_prescribed_precip_flux.json 
 
 generate_times_control:
 	python workflows/train-evaluate-prognostic-run/generate_times.py \
 		$(TRAINING_DATA_CONTROL) \
-		train_control.json \
-		test_control.json
+		workflows/train-evaluate-prognostic-run/train_control.json \
+		workflows/train-evaluate-prognostic-run/test_control.json
+
+generate_times_nudging_sensitivity:
+	python workflows/train-evaluate-prognostic-run/generate_times.py \
+		$(TRAINING_DATA_1_HR_TIMESCALE) \
+		workflows/train-evaluate-prognostic-run/train_tau_sensitivity.json \
+		workflows/train-evaluate-prognostic-run/test_tau_sensitivity.json
 
 # nudged to fine run where we do not set any states based on fine-resolution data, 
 # use a radiation timestep of 1800 seconds, start the simulation at 20160801.010000, 
@@ -34,17 +44,31 @@ nudge_to_fine_rad_precip_prescribed: deploy_nudge_to_fine
 	cd workflows/nudge-to-fine-run; \
 	./nudged-run-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf.sh
 
+nudge_to_fine_timescale_sensitivity: deploy_nudge_to_fine
+	cd workflows/timescale-sensitivity-nudge-to-fine-run; \
+	./run.sh
+
 nudge_to_fine_training_data_zarrs_prescribed:
 	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
 		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED)/state_after_timestep.zarr \
-		gs://vcm-ml-scratch/annak/2021-06-03-test-output
 		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED_ZARR)
 
 nudge_to_fine_training_data_zarrs_control:
 	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
-		$(TRAINING_DATA_CONTROL) \
+		$(TRAINING_DATA_CONTROL)/state_after_timestep.zarr \
 		$(TRAINING_DATA_CONTROL_ZARR)
-        
+
+nudge_to_fine_training_data_zarrs_timescales:
+	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
+		$(TRAINING_DATA_1_HR_TIMESCALE)/state_after_timestep.zarr \
+		$(TRAINING_DATA_1_HR_TIMESCALE)/prescribed_training_data.zarr
+	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
+		$(TRAINING_DATA_6_HR_TIMESCALE)/state_after_timestep.zarr \
+		$(TRAINING_DATA_6_HR_TIMESCALE)/prescribed_training_data.zarr
+	python workflows/nudge-to-fine-run/create_training_data_zarrs.py \
+		$(TRAINING_DATA_12_HR_TIMESCALE)/state_after_timestep.zarr \
+		$(TRAINING_DATA_12_HR_TIMESCALE)/prescribed_training_data.zarr
+    
 # training nudged data has rad and precip prescribed from reference
 train_Tq_rf: deploy_ml_experiments_rf generate_times_control
 	cd workflows/train-evaluate-prognostic-run;  \
@@ -54,6 +78,35 @@ train_Tq_rf: deploy_ml_experiments_rf generate_times_control
 		./training-configs/tendency-outputs-dQ1-dQ2-rf.yaml \
 		train_control.json \
 		test_control.json
+
+# train NN models on 1/6/12 hr nudging timescale data
+train_timescale_sensitivites: deploy_ml_experiments_nn generate_times_nudging_sensitivity
+	cd workflows/train-evaluate-prognostic-run;  \
+	./run.sh \
+		2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-1-hr \
+		$(TRAINING_DATA_1_HR_TIMESCALE) \
+		$(TRAINING_DATA_1_HR_TIMESCALE)/prescribed_training_data.zarr \
+		./training-configs/tendency-outputs-nn.yaml \
+		./training-configs/surface-outputs-nn.yaml \
+		train_tau_sensitivity.json \
+		test_tau_sensitivity.json
+	./run.sh \
+		2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-6-hr \
+		$(TRAINING_DATA_6_HR_TIMESCALE) \
+		$(TRAINING_DATA_6_HR_TIMESCALE)/prescribed_training_data.zarr \
+		./training-configs/tendency-outputs-nn.yaml \
+		./training-configs/surface-outputs-nn.yaml \
+		train_tau_sensitivity.json \
+		test_tau_sensitivity.json
+	./run.sh \
+		2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-12-hr \
+		$(TRAINING_DATA_12_HR_TIMESCALE) \
+		$(TRAINING_DATA_12_HR_TIMESCALE)/prescribed_training_data.zarr \
+		./training-configs/tendency-outputs-nn.yaml \
+		./training-configs/surface-outputs-nn.yaml \
+		train_tau_sensitivity.json \
+		test_tau_sensitivity.json
+
 
 # training nudged data has rad and precip prescribed from reference
 train_rf_TqR: deploy_ml_experiments_rf generate_times_prescribed
@@ -174,6 +227,13 @@ prognostic_TquvR_nn_random_seeds: deploy_ml_experiments_nn
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn.yaml \
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn/seed-n/prognostic_run_sfc_rad_rectified
 
+# prognostic runs for nudging timescale sensitivity experiment
+prognostic_timescale_sensitivity:  deploy_ml_experiments_nn 
+	cd workflows/timescale-sensitivity-prognostic-run; \
+	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-1-hr 1; \
+	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-6-hr 6; \
+	./run.sh 2021-05-11-nudge-to-c3072-corrected-winds/nudged-tau-12-hr 12;
+
 prognostic_run_report_nudged_training: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report && ./run.sh nudge-to-3km-nudged-training
     
@@ -188,6 +248,10 @@ prognostic_report_nn_seeds: deploy_ml_experiments_rf
 prognostic_report_sensitivity: deploy_ml_experiments_rf
 	cd workflows/prognostic-run-report; \
 	./run.sh nudge-to-3km-sensitivity
+
+prognostic_report_nudging_timescale: deploy_ml_experiments_rf
+	cd workflows/prognostic-run-report; \
+	./run.sh nudge-to-3km-timescale-sensitivity
 
 deploy_ml_experiments_rf: kustomize
 	./kustomize build workflows/train-evaluate-prognostic-run/kustomize_rf | kubectl apply -f -
