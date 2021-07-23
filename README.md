@@ -23,7 +23,7 @@ Repository structure:
 
 # Reproducing the results
 
-Running the make commands in the order shown in the DAGs below will reproduce the experiments described in this paper. 
+Running the make commands in the order shown in the DAGs below will reproduce the experiments described in this paper. The final steps of `make figures_*` can either be run as a make command or the individual notebooks in the `notebooks` directory can be executed to interactively view the results figures as they are created.
 
 
 #### Main experiment
@@ -31,9 +31,12 @@ This DAG outlines how to generate our main results for the random forest and neu
 
 ![](main-experiment-dag.png)
 
-#### Sensitivity to nudged training data and ML radiative fluxes
+#### Ablation study
+This DAG outlines how to generate the results of our sensitivity study testing the effects of i) prescribing surface radiative fluxes and precipitation to the fine res reference in the nudged training run, ii) predicting $Tq$ tendencies vs. $Tquv$ tendencies, and iii) using a neural net versus a random forest
+Greyed out boxes indicate steps that have already been completed, assuming the workflow in the main experiment DAG for the main experiment has already run.
+![](ablation-study-dag.png)
 
-This DAG outlines how to generate the results of our sensitivity study testing the effects of i) prescribing surface radiative fluxes and precipitation to the fine res reference in the nudged training run, and ii) training an ML model to predict surface radiative fluxes and update with its predictions during the prognostic run.
-
-Greyed out boxes indicate steps that have already been completed, assuming the workflow in the above DAG for the main experiment has already run.
-![](sensitivity-experiment-dag.png)
+#### Nudging timescale sensitivity
+This DAG outlines how to generate the results of the nudging timescale sensitivity study. It runs the 1, 6, and 12 hr nudging timescales (the 3 hr timescale results are from the
+main experiment) for both $TqR-NN$ and $TquvR-NN$ models. Greyed out boxes indicate steps that have already been completed, assuming the workflow in the main experiment DAG for the main experiment has already run.
+![](timescale-sensitivity-dag.png)
