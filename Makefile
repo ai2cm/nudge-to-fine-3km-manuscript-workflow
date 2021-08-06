@@ -43,6 +43,11 @@ nudge_to_fine_control: deploy_nudge_to_fine
 nudge_to_fine_rad_precip_prescribed: deploy_nudge_to_fine
 	cd workflows/nudge-to-fine-run; \
 	./nudged-run-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf.sh
+    
+# same as above but with fast sat adj turned on
+nudge_to_fine_rad_precip_prescribed_fast_sat: deploy_nudge_to_fine
+	cd workflows/nudge-to-fine-run; \
+	./nudged-run-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf-fast-sat.sh
 
 nudge_to_fine_timescale_sensitivity: deploy_nudge_to_fine
 	cd workflows/timescale-sensitivity-nudge-to-fine-run; \
