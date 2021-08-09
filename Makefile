@@ -158,6 +158,16 @@ train_nn_TquvR_no_reg_random_seeds: deploy_ml_experiments_nn generate_times_pres
 		./training-configs/tendency-outputs-nn-no-tq-reg.yaml \
 		train_prescribed_precip_flux.json \
 		test_prescribed_precip_flux.json
+        
+# same as above but with mse loss
+train_nn_TquvR_no_reg_mse_random_seeds: deploy_ml_experiments_nn generate_times_prescribed
+	cd workflows/train-evaluate-prognostic-run;  \
+	./run_random_seeds_tends_only.sh \
+		2021-08-05-nudge-to-c3072/nn-no-tq-reg-mse \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
+		./training-configs/tendency-outputs-nn-no-tq-reg-mse.yaml \
+		train_prescribed_precip_flux.json \
+		test_prescribed_precip_flux.json
 
 # ensemble model needs offline report generated, as it is only done automatically for its components
 offline_report_nn_ensemble: deploy_ml_experiments_nn generate_times_prescribed
@@ -167,13 +177,21 @@ offline_report_nn_ensemble: deploy_ml_experiments_nn generate_times_prescribed
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model-rectified \
 		gs://vcm-ml-public/offline_ml_diags/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model-rectified
                
-# same as above but for the NNs without Tq regularization
+# same as offline_report_nn_ensemble but for the NNs without Tq regularization
 offline_report_nn_no_tq_reg_ensemble: deploy_ml_experiments_nn generate_times_prescribed
 	cd workflows/train-evaluate-prognostic-run; \
 	cd nn-ensemble-models; ./upload_no_tq_reg.sh; \
 	cd ..; ./ensemble_offline_report_no_tq_reg.sh \
 		gs://vcm-ml-experiments/2021-08-05-nudge-to-c3072/nn-no-tq-reg-ensemble-model \
 		gs://vcm-ml-public/offline_ml_diags/2021-08-05-nudge-to-c3072/nn-no-tq-reg-ensemble-model
+        
+# same as above but with mse loss
+offline_report_nn_no_tq_reg_mse_ensemble: deploy_ml_experiments_nn generate_times_prescribed
+	cd workflows/train-evaluate-prognostic-run; \
+	cd nn-ensemble-models; ./upload_no_tq_reg_mse.sh; \
+	cd ..; ./ensemble_offline_report_no_tq_reg_mse.sh \
+		gs://vcm-ml-experiments/2021-08-05-nudge-to-c3072/nn-no-tq-reg-mse-ensemble-model \
+		gs://vcm-ml-public/offline_ml_diags/2021-08-05-nudge-to-c3072/nn-no-tq-reg-mse-ensemble-model
         
 # baseline no-ML prognostic runs at different start times
 prognostic_baseline: deploy_ml_experiments_rf
@@ -227,6 +245,15 @@ prognostic_TqR_nn_ensemble_ics: deploy_ml_experiments_nn
 		gs://vcm-ml-experiments/2021-05-11-nudge-to-c3072-corrected-winds/nn-ensemble-model/trained_models/dq1-dq2 \
 		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
 		gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs
+        
+# same as above but with NNs with no Tq regularization and mse loss 
+prognostic_TqR_nn_no_tq_reg_mse_ensemble_ics: deploy_ml_experiments_nn
+	cd workflows/prognostic-run; \
+	./run_ICs.sh \
+		prognostic-tqr-nn-no-tq-reg-mse-ensemble-ics \
+		gs://vcm-ml-experiments/2021-08-05-nudge-to-c3072/nn-no-tq-reg-mse-ensemble-model/trained_models/dq1-dq2 \
+		prognostic-configs/training-rad-precip-prescribed-ml-tendencies-rad-nn-ensemble.yaml \
+		gs://vcm-ml-experiments/2021-08-05-nudge-to-c3072/nn-no-tq-reg-mse-ensemble-model/initial_conditions_runs
 
 # training nudged data has rad and precip prescribed from reference
 # runs four initial conditions
