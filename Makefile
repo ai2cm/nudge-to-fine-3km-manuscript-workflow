@@ -10,7 +10,7 @@ TRAINING_DATA_1_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timesc
 TRAINING_DATA_6_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-6hr
 TRAINING_DATA_12_HR_TIMESCALE=gs://vcm-ml-experiments/2021-04-28-n2f-c3072-timescale-sensitivity-update/nudging-timescale-12hr
 
-FIGURES = (Figure-1 Figure-2 Figure-3 Figure-4 Figure-5 Figure-6 Figure-8 Figure-9 Figure-A1 Figure-A2 Figure-A5 Figure-A6 Figure-A7 Figure-A8 Table-2)
+FIGURES = (Figure-1 Figure-2 Figure-4 Figure-5 Figure-6 Figure-7 Figure-8 Figure-10 Figure-11 Figure-12 Figure-13 Figure-14 Figure-A1 Figure-A2 Table-2)
 
 generate_times_prescribed:
 	python workflows/train-evaluate-prognostic-run/generate_times.py \
