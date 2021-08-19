@@ -201,6 +201,11 @@ prognostic_baseline: deploy_ml_experiments_rf
 	./run_baseline.sh 20160813.000000; \
 	./run_baseline.sh 20160821.000000; \
 	./run_baseline.sh 20160829.000000
+    
+# baseline no-ML prognostic run with fast sat adj on
+prognostic_baseline_fast_sat_adj: deploy_ml_experiments_rf
+	cd workflows/prognostic-run; \
+	./run_baseline_fast_sat_adj.sh 20160805.000000
         
 # training nudged data does not have any prescribed surface states
 # runs four initial conditions
