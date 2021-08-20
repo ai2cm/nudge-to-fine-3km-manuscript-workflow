@@ -3,6 +3,7 @@
         "variable": "TMP200_rmse",
         "units": "K",
         "base-no-ML": 3.4360039234161377,
+        "base-fast-sat-adj-no-ML": 3.4639055728912354,
         "Tq-RF": 3.161888837814331,
         "Tquv-RF": 5.007255554199219,
         "TquvR-RF": 5.085434913635254,
