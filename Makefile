@@ -48,6 +48,12 @@ nudge_to_fine_rad_precip_prescribed: deploy_nudge_to_fine
 nudge_to_fine_rad_precip_prescribed_fast_sat: deploy_nudge_to_fine
 	cd workflows/nudge-to-fine-run; \
 	./nudged-run-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf-fast-sat.sh
+    
+# restart the above for the last segment
+nudge_to_fine_rad_precip_prescribed_fast_sat_restart: deploy_nudge_to_fine
+	argo submit --from workflowtemplate/restart-prognostic-run \
+		-p url="gs://vcm-ml-experiments/2021-04-13-n2f-c3072/3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf-fast-sat" \
+		-p segment-count="1"
 
 nudge_to_fine_timescale_sensitivity: deploy_nudge_to_fine
 	cd workflows/timescale-sensitivity-nudge-to-fine-run; \
