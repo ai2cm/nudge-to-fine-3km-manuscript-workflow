@@ -1,0 +1,22 @@
+[
+    {
+        "url": "gs://vcm-ml-experiments/2021-06-21-nudge-to-c3072-dq1-dq2-only/nn-ensemble-model/initial_conditions_runs/20160805.000000",
+        "name": "TqR-NN-Tq-reg-mae"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-08-05-nudge-to-c3072/nn-mse-ensemble-model/initial_conditions_runs/20160805.000000",
+        "name": "TqR-NN-Tq-reg-mse"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-08-05-nudge-to-c3072/nn-no-tq-reg-ensemble-model/initial_conditions_runs/20160805.000000",
+        "name": "TqR-NN-no-Tq-reg-mae"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-08-05-nudge-to-c3072/nn-no-tq-reg-mse-ensemble-model/initial_conditions_runs/20160805.000000",
+        "name": "TqR-NN-no-Tq-reg-mse"
+    },
+    {
+        "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160805-start-rad-step-1800s",
+        "name": "base no-ML"
+    }
+]

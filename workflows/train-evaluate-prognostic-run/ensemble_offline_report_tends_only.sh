@@ -14,4 +14,4 @@ argo submit \
     -p offline-diags-output="$EXPERIMENT_ROOT/offline_diags/dq1-dq2" \
     -p report-output="$REPORT_OUTPUT_ROOT/dq1-dq2" \
     -p memory="25Gi" \
-    --name "offline-nn-ensemble-dq1-dq2-no-reg-mse"
+    --name "offline-nn-ensemble-tends-only
