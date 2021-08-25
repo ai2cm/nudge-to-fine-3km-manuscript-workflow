@@ -1,0 +1,35 @@
+- name: prephysics_ML_surface_flux_rectified
+  config:
+    random_seed: 0 
+    model_type: RectifiedDenseModel
+    hyperparameters:
+      loss: mae
+      depth: 2
+      fit_kwargs:
+        batch_size: 512
+        epochs: 24
+      normalize_loss: true
+      width: 32
+      regularizer:
+        name: l2
+        kwargs:
+          l: 0.0
+      optimizer:
+        name: Adam
+        kwargs:
+          learning_rate: 0.002
+    batch_function: batches_from_geodata
+    batch_kwargs:
+      timesteps_per_batch: 10
+      mapping_function: open_zarr
+      mapping_kwargs: {}
+    input_variables:
+      - surface_diffused_shortwave_albedo
+      - cos_zenith_angle
+      - surface_geopotential
+      - air_temperature
+      - specific_humidity
+    output_variables:
+    - override_for_time_adjusted_total_sky_downward_shortwave_flux_at_surface
+    - override_for_time_adjusted_total_sky_downward_longwave_flux_at_surface
+    - override_for_time_adjusted_total_sky_net_shortwave_flux_at_surface

@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+resources:
+- ../../../fv3net/workflows/argo
+kind: Kustomization
+images:
+- name: us.gcr.io/vcm-ml/fv3net
+  newTag: a24d15ef763a2a157e62738dbf09738cb85fe8ad
+- name: us.gcr.io/vcm-ml/post_process_run
+  newTag: a24d15ef763a2a157e62738dbf09738cb85fe8ad
+- name: us.gcr.io/vcm-ml/prognostic_run
+  newTag: a24d15ef763a2a157e62738dbf09738cb85fe8ad

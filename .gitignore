@@ -1,0 +1,7 @@
+kustomize
+.ipynb_checkpoints
+notebooks/figures/*.png
+notebooks/figures/*.mp4
+notebooks/figures/*.eps
+notebooks/figures/*.pdf
+*.nbconvert.ipynb
