@@ -17,6 +17,6 @@
     },
     {
         "url": "gs://vcm-ml-experiments/2021-04-13/baseline-physics-run-20160805-start-rad-step-1800s",
-        "name": "base no-ML"
+        "name": "baseline"
     }
 ]
