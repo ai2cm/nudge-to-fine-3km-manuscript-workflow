@@ -44,6 +44,11 @@ nudge_to_fine_rad_precip_prescribed: deploy_nudge_to_fine
 	cd workflows/nudge-to-fine-run; \
 	./nudged-run-3-hrly-ave-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf.sh
     
+# same as above but with 15 minute outputs, only for 10 days
+nudge_to_fine_rad_precip_prescribed_15_min: deploy_nudge_to_fine
+	cd workflows/nudge-to-fine-run; \
+	./nudged-run-15-min-rad-precip-setting-30-min-rad-timestep-shifted-start-tke-edmf.sh
+    
 # same as above but with fast sat adj turned on
 nudge_to_fine_rad_precip_prescribed_fast_sat: deploy_nudge_to_fine
 	cd workflows/nudge-to-fine-run; \
