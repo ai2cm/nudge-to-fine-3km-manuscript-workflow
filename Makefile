@@ -144,6 +144,16 @@ train_nn_TquvR_random_seeds: deploy_ml_experiments_nn generate_times_prescribed
 		train_prescribed_precip_flux.json \
 		test_prescribed_precip_flux.json
 
+# Revision plot for nonregularized vs L2=0.01 effect on dQs offline R2
+train_nn_regularization_sensitivity: deploy_ml_experiments_nn generate_times_prescribed
+	cd workflows/train-evaluate-prognostic-run;  \
+	./train_nn_regularization_sensitivity.sh \
+		2021-12-02-nudge-to-c3072-regularization-sensitivitity/nn \
+		$(TRAINING_DATA_RAD_PRECIP_PRESCRIBED) \
+		train_prescribed_precip_flux.json \
+		test_prescribed_precip_flux.json
+
+
 # ensemble model needs offline report generated, as it is only done automatically for its components
 offline_report_nn_ensemble: deploy_ml_experiments_nn generate_times_control
 	cd workflows/train-evaluate-prognostic-run; \
